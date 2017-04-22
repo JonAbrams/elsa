@@ -1,0 +1,23 @@
+{
+  "name": "babel-plugin-elsa",
+  "version": "1.0.0",
+  "description": "A babel plugin for replacing object and array literals with immutable versions",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "mocha": "^3.2.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "keywords": [
+    "babel",
+    "babel-plugin",
+    "elsa",
+    "immutable"
+  ],
+  "author": "Jon Abrams (https://twitter.com/JonathanAbrams)",
+  "license": "ISC"
+}
