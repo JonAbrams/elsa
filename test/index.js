@@ -12,13 +12,13 @@ var user = Object.freeze({
   followerCount: 5,
   followers: Object.freeze([Object.freeze({ name: 'zivi' })])
 });
-var emptyUser = Object.freeze({});
+var defaultEmptyUser = user || Object.freeze({});
 var users = Object.freeze([user]);
 var emptyUsers = Object.freeze([]);
 user.followerCount = 6;
 user.followerCount++;
 user.followerCount += 1;
-resetfollowerCount(user); // should no-op thanks to elsa
+resetfollowerCount(user, {});
 
 function resetfollowerCount(user) {
   person.followerCount = 1;
