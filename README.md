@@ -25,7 +25,7 @@ const person = Object.freeze({
 });
 ```
 
-What Elsa does, is wrap nearly every object/array literal with `Object.freeze`.
+Elsa automatically wrap nearly every [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals)/[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Array_literals) literal you create with `Object.freeze`.
 
 ## Usage
 
@@ -36,7 +36,7 @@ Elsa is a babel plugin, to make use of it, you need to install it:
 Add elsa as a plugin to your `.babelrc` config file:
 ```json
 {
-  "plugins": "elsa"
+  "plugins": ["elsa"]
 }
 ```
 
