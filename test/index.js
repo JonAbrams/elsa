@@ -1,10 +1,10 @@
 const babel = require('babel-core');
 const assert = require('assert');
-const elsa = require('../index');
+const elsa = require('../src/index');
 
 const outputJs = babel.transformFileSync('./test/sample/sample_input.js', {
-  plugins: [elsa],
-}).code;
+  plugins: [elsa]
+}).code.split('\n').slice(30).join('\n').slice(1);
 
 const expectedJs = `
 var user = Object.freeze({
