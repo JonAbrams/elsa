@@ -10,7 +10,7 @@ module.exports = function elsa({ types: t, transform }) {
       'Program'(path) {
         path.unshiftContainer('body', frozenArrayClassNode);
       },
-      'ObjectExpression|ArrayExpression'(path) {  // select new object and array literals
+      ObjectExpression(path) {                    // select new object literals
         if (!t.isCallExpression(path.parent)) {   // Exclude objects passed directly to func calls
                                                   // otherwise causes infinite recursion
           path.replaceWith(                       // wrap in Onject.freeze
@@ -21,6 +21,13 @@ module.exports = function elsa({ types: t, transform }) {
           );
         }
       },
+      ArrayExpression(path) {                     // select new array literals
+        const elements = path.node.elements;
+                                                  // turn `[1,2,3]` into `new FrozenArray(1,2,3)`
+        path.replaceWith(
+          t.newExpression(t.identifier('FrozenArray'), elements)
+        );
+      }
     },
   };
 };
