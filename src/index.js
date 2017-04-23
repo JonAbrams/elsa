@@ -1,5 +1,6 @@
 const fs = require('fs');
-const frozenArrCode = fs.readFileSync('./src/frozen_array.js', { encoding: 'utf8' });
+const FrozenArray = require('./frozen_array');
+const frozenArrCode = FrozenArray.toString();
 
 module.exports = function elsa({ types: t, transform }) {
   const frozenArrayClassNode = transform(frozenArrCode).ast.program.body[0];

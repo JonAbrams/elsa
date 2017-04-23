@@ -53,3 +53,5 @@ class FrozenArray extends Array {
     return new FrozenArray(...new Array(...this).fill(...args));
   }
 }
+
+module.exports = FrozenArray;
