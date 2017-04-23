@@ -25,7 +25,8 @@ const person = Object.freeze({
 });
 ```
 
-Elsa automatically wrap nearly every [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals)/[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Array_literals) literal you create with `Object.freeze`.
+Elsa does two things: - It wraps [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals) literal you create with `Object.freeze`.
+- It changes each [array literal]([array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Array_literals) into a `FrozenArray`.
 
 ## Usage
 
@@ -39,6 +40,20 @@ Add elsa as a plugin to your `.babelrc` config file:
   "plugins": ["elsa"]
 }
 ```
+
+## FrozenArray
+
+Elsa turns all array literals (e.g. `const coolNumbers = [1,5,-4,20];`) into instances of `FrozenArray`.
+
+`FrozenArray` inherits from JavaScript's built-in Array. This means it has a `.length`, is an instance of `Array`, and any of the methods that you'd expect like `.forEach` and `.map`.
+
+The methods on `Array` that would typically mutate the array they are called on are reimplemented on
+`FrozenArray` to instead return a fresh instance of `FrozenArray`. This includes `push`, `pop`,
+`unshift`, `shift`, `sort`, `reverse`, `splice`, and `fill`. `slice` has also been reimplemented, but
+its only difference is that it returns a `FrozenArray` instance instead of a normal array.
+
+- `push`: `new FrozenArray(1,2,3).push(5)` -> `[1, 2, 3, 5]`
+- `pop`: `new FrozenArray(1,2,3).pop()` -> `[[1, 2], 3]` (`.shift` returns a tuple as well)
 
 ## License
 
