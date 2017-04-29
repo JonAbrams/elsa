@@ -2,7 +2,7 @@
   "name": "babel-plugin-elsa",
   "version": "1.0.0",
   "description": "A babel plugin for replacing object and array literals with immutable versions",
-  "main": "index.js",
+  "main": "src/index.js",
   "dependencies": {
   },
   "devDependencies": {

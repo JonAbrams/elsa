@@ -1,14 +1,15 @@
 const fs = require('fs');
-const FrozenArray = require('./frozen_array');
-const frozenArrCode = FrozenArray.toString();
+const packageJson = require('../package.json');
 
 module.exports = function elsa({ types: t, transform }) {
-  const frozenArrayClassNode = transform(frozenArrCode).ast.program.body[0];
-
   return {
     visitor: {
-      'Program'(path) {
-        path.unshiftContainer('body', frozenArrayClassNode);
+      Program(path) {
+        const tt = t;
+        path.unshiftContainer('body', t.importDeclaration(
+          [t.importDefaultSpecifier(t.identifier('FrozenArray'))],
+          t.stringLiteral(`${packageJson.name}/frozen_array`)
+        ));
       },
       ObjectExpression(path) {                    // select new object literals
         if (!t.isCallExpression(path.parent)) {   // Exclude objects passed directly to func calls

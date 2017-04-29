@@ -1,4 +1,8 @@
-class FrozenArray extends Array {
+function immutify(methodName, args=[]) {
+  return new FrozenArray(...new Array(...this)[methodName](...args));
+}
+
+module.exports = class FrozenArray extends Array {
   constructor(...items) {
     if (items.length === 1) {
       // This case is special since `new Array(nElements)` is a thing, need to work around it
@@ -41,17 +45,15 @@ class FrozenArray extends Array {
     return new FrozenArray(...arr);
   }
 
-  sort(comparator) {
-    return new FrozenArray(...new Array(...this).sort(comparator));
+  sort(...args) {
+    return immutify.call(this, 'sort', args);
   }
 
   reverse() {
-    return new FrozenArray(...new Array(...this).reverse());
+    return immutify.call(this, 'reverse');
   }
 
   fill(...args) {
-    return new FrozenArray(...new Array(...this).fill(...args));
+    return immutify.call(this, 'fill', args);
   }
 }
-
-module.exports = FrozenArray;

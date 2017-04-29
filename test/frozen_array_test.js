@@ -1,5 +1,5 @@
 const assert = require('assert');
-const FrozenArray = require('../src/frozen_array');
+const FrozenArray = require('../frozen_array');
 
 describe('FrozenArray', function() {
   before(function() {
@@ -55,10 +55,16 @@ describe('FrozenArray', function() {
 
   describe('#slice', function() {
     it('returns a sliced array', function() {
-      const sliced = this.farr.slice(1,3);
+      const sliced = this.farr.slice(1, 3);
       assert.deepEqual(sliced, [3, 11]);
       assert(Object.isFrozen(sliced));
-      assert.deepEqual(this.farr.slice(1,2), [3]); // The single value has caused bugs, test needed
+      assert.deepEqual(this.farr.slice(1, 2), [3]); // The single value has caused bugs, test needed
+    });
+  });
+
+  describe('#fill', function() {
+    it('returns an array filled in with given value', function() {
+      assert.deepEqual(this.farr.fill(1), [1, 1, 1, 1, 1, 1]);
     });
   });
 });

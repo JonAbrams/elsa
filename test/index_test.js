@@ -4,9 +4,10 @@ const elsa = require('../src/index');
 
 const outputJs = babel.transformFileSync('./test/sample/sample_input.js', {
   plugins: [elsa]
-}).code.split('\n').slice(32).join('\n').slice(1);
+}).code;
 
 const expectedJs = `
+import FrozenArray from 'elsa/frozen_array';
 (function () {
   var user = Object.freeze({
     name: 'jon',
@@ -16,7 +17,9 @@ const expectedJs = `
   var defaultEmptyUser = user || Object.freeze({});
   var users = new FrozenArray(user);
   var emptyUsers = new FrozenArray();
-  user.followerCount = 6;user.followerCount++;user.followerCount += 1;
+  user.followerCount = 6;
+  user.followerCount++;
+  user.followerCount += 1;
   resetfollowerCount(user, {});
 
   function resetfollowerCount(user) {
