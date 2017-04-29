@@ -7,7 +7,7 @@ const outputJs = babel.transformFileSync('./test/sample/sample_input.js', {
 }).code;
 
 const expectedJs = `
-import FrozenArray from 'elsa/frozen_array';
+import FrozenArray from 'babel-plugin-elsa/frozen_array';
 (function () {
   var user = Object.freeze({
     name: 'jon',
