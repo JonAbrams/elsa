@@ -1,4 +1,4 @@
-const update = require('react-addons-update');
+const update = require('immutability-helper');
 
 module.exports = class FrozenObject {
   constructor(obj) {
@@ -9,6 +9,6 @@ module.exports = class FrozenObject {
   }
 
   update(...args) {
-    return new FrozenObject(update.call(null, this, ...args));
+    return new FrozenObject(update.call(null, Object.assign({}, this), ...args));
   }
 };

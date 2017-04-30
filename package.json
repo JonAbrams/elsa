@@ -4,7 +4,7 @@
   "description": "A babel plugin for replacing object and array literals with immutable versions",
   "main": "index.js",
   "dependencies": {
-    "react-addons-update": "^15.5.2"
+    "immutability-helper": "^2.1.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
