@@ -2,9 +2,7 @@ const update = require('immutability-helper');
 
 module.exports = class FrozenObject {
   constructor(obj) {
-    Object.keys(obj).forEach(key => {
-      this[key] = obj[key];
-    });
+    Object.assign(this, obj);
     Object.freeze(this);
   }
 

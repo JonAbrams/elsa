@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 const babel = require('babel-core');
 const assert = require('assert');
 const elsa = require('../index');
@@ -31,8 +32,8 @@ import FrozenArray from 'babel-plugin-elsa/frozen_array';
 })();
 `.trim();
 
-describe('elsa', function() {
-  it('produces expected output', function() {
+describe('elsa', () => {
+  it('produces expected output', () => {
     assert.equal(outputJs, expectedJs);
   });
 });
