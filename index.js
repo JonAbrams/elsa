@@ -17,6 +17,13 @@ module.exports = function elsa({ types: t }) {
                                                   // Ignore literals passed into new FrozenObject()
                                                   // otherwise causes infinite recursion
         if (t.isNewExpression(path.parent) && path.parent.callee.name === 'FrozenObject') return;
+
+        // Make sure we don't alter the plugin that implements `import` for older JS VMs!
+        let peekPath = path;
+        while (peekPath.parentPath) {
+          peekPath = peekPath.parentPath;
+          if (peekPath.node.id && peekPath.node.id.name === '_interopRequireDefault') return;
+        }
                                                   // turn `{ hi: true }` into
         path.replaceWith(                         // `new FrozenObject({ hi: true })`
           t.newExpression(t.identifier('FrozenObject'), [path.node])

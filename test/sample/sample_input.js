@@ -1,4 +1,4 @@
-(function() {
+(function () {
   var user = {
     name: 'jon',
     followerCount: 5,
