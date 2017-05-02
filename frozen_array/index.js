@@ -2,9 +2,15 @@ class FrozenArray extends Array {
   constructor(...items) {
     // Note: Cannot just do `super(...items)`` because if there's one item, it's treated as
     // desired size instead of a single array item.
-    const arr = super();
-    Array.prototype.splice.call(arr, 0, 0, ...items);
-    Object.freeze(arr);
+    if (items.length === 1) {
+      // This case is special since `new Array(nElements)` is a thing, need to work around it
+      const arr = super();
+      arr[0] = items[0];
+      Object.freeze(arr);
+    } else {
+      // Otherwise `new Array(element1, element2, ...)` is fine
+      Object.freeze(super(...items));
+    }
   }
 
   // returns [arrayWithoutLastValue, lastValue]
@@ -16,24 +22,33 @@ class FrozenArray extends Array {
   shift() {
     return new FrozenArray(this.slice(1), this[0]);
   }
-
-  slice(...args) {
-    const arr = Array.prototype.concat(...this);
-    return new FrozenArray(...arr.slice(...args));
-  }
-
-  splice(...args) {
-    const arr = Array.prototype.concat(...this);
-    arr.splice(...args);
-    return new FrozenArray(...arr);
-  }
 }
 
-['sort', 'reverse', 'fill', 'splice', 'unshift', 'push', 'copyWithin'].forEach(method => {
+[
+  'sort',
+  'reverse',
+  'fill',
+  'splice',
+  'unshift',
+  'push',
+  'copyWithin',
+].forEach(method => {
   FrozenArray.prototype[method] = function (...args) { // eslint-disable-line func-names
-    const arr = new Array(...this);
+    const arr = new Array().concat(...this); // eslint-disable-line no-array-constructor
     arr[method](...args);
     return new FrozenArray(...arr);
+  };
+});
+
+[
+  'slice',
+  'concat',
+  'map',
+  'filter',
+].forEach(method => {
+  FrozenArray.prototype[method] = function (...args) { // eslint-disable-line func-names
+    const arr = new Array().concat(...this); // eslint-disable-line no-array-constructor
+    return new FrozenArray(...arr[method](...args));
   };
 });
 
