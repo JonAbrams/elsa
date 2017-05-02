@@ -4,7 +4,7 @@ const assert = require('assert');
 const elsa = require('../index');
 
 const outputJs = babel.transformFileSync('./test/sample/sample_input.js', {
-  plugins: [elsa]
+  plugins: [elsa],
 }).code;
 
 const expectedJs = `
