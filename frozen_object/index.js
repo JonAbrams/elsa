@@ -1,12 +1,14 @@
-const update = require('immutability-helper');
+/* eslint-disable no-var */
+var immutabilityUpdate = require('immutability-helper');
+var merge = require('lodash.merge');
 
-module.exports = class FrozenObject {
-  constructor(obj) {
-    Object.assign(this, obj);
-    Object.freeze(this);
-  }
+function FrozenObject(obj) {
+  merge(this, obj);
+  Object.freeze(this);
+}
 
-  update(...args) {
-    return new FrozenObject(update.call(null, Object.assign({}, this), ...args));
-  }
+FrozenObject.prototype.update = function update(updateObj) {
+  return new FrozenObject(immutabilityUpdate(merge({}, this), updateObj));
 };
+
+module.exports = FrozenObject;

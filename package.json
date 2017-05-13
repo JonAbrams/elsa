@@ -4,7 +4,8 @@
   "description": "A babel plugin for replacing object and array literals with immutable versions",
   "main": "index.js",
   "dependencies": {
-    "immutability-helper": "^2.1.2"
+    "immutability-helper": "^2.1.2",
+    "lodash.merge": "^4.6.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
