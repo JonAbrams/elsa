@@ -1,6 +1,6 @@
 /* eslint-disable no-var */
 var immutabilityUpdate = require('immutability-helper');
-var merge = require('lodash.merge');
+var merge = require('lodash/merge');
 
 function FrozenObject(obj) {
   merge(this, obj);

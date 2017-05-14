@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "immutability-helper": "^2.1.2",
-    "lodash.merge": "^4.6.0"
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

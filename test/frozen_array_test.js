@@ -12,6 +12,8 @@ describe('FrozenArray', () => {
   it('is an array', function () {
     assert.deepEqual(this.farr, [4, 3, 11, 19, 13, 0]);
     assert.deepEqual(this.farrSingle, [4]);
+    assert(this.farr.constructor === FrozenArray);
+    assert(this.farr instanceof FrozenArray);
     assert(this.farr instanceof Array);
     assert(Array.isArray(this.farr));
   });

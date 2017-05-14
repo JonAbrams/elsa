@@ -1,28 +1,40 @@
-class FrozenArray extends Array {
-  constructor(...items) {
-    // Note: Cannot just do `super(...items)`` because if there's one item, it's treated as
-    // desired size instead of a single array item.
-    if (items.length === 1) {
-      // This case is special since `new Array(nElements)` is a thing, need to work around it
-      const arr = super();
-      arr[0] = items[0];
-      Object.freeze(arr);
-    } else {
-      // Otherwise `new Array(element1, element2, ...)` is fine
-      Object.freeze(super(...items));
-    }
+/* eslint-disable no-var */
+/* eslint-disable prefer-rest-params */
+/* eslint-disable no-array-constructor */
+/* eslint-disable no-proto */
+/* eslint-disable vars-on-top */
+/* eslint-disable prefer-spread */
+/* eslint-disable no-array-constructor */
+/* eslint-disable prefer-arrow-callback */
+
+function FrozenArray() {
+  var proto = FrozenArray.prototype;
+  var args = arguments;
+  var self;
+  if (args.length === 1 && typeof args[0] === 'number') {
+    self = new Array(1);
+    self[0] = args[0];
+  } else {
+    self = Array.apply(null, args);
   }
 
-  // returns [arrayWithoutLastValue, lastValue]
-  pop() {
-    return new FrozenArray(this.slice(0, this.length - 1), this[this.length - 1]);
-  }
-
-  // returns [arrayWithoutFirstValue, firstValue]
-  shift() {
-    return new FrozenArray(this.slice(1), this[0]);
-  }
+  // eslint-disable-next-line no-unused-expressions
+  Object.setPrototypeOf ? Object.setPrototypeOf(self, proto) : self.__proto__ = proto;
+  return Object.freeze(self);
 }
+
+FrozenArray.prototype = Object.create(Array.prototype);
+FrozenArray.prototype.constructor = FrozenArray;
+
+// returns [arrayWithoutLastValue, lastValue]
+FrozenArray.prototype.pop = function pop() {
+  return new FrozenArray(this.slice(0, this.length - 1), this[this.length - 1]);
+};
+
+// returns [arrayWithoutFirstValue, firstValue]
+FrozenArray.prototype.shift = function shift() {
+  return new FrozenArray(this.slice(1), this[0]);
+};
 
 [
   'sort',
@@ -32,11 +44,11 @@ class FrozenArray extends Array {
   'unshift',
   'push',
   'copyWithin',
-].forEach(method => {
-  FrozenArray.prototype[method] = function (...args) { // eslint-disable-line func-names
-    const arr = new Array().concat(...this); // eslint-disable-line no-array-constructor
-    arr[method](...args);
-    return new FrozenArray(...arr);
+].forEach(function (method) { // eslint-disable-line func-names
+  FrozenArray.prototype[method] = function () { // eslint-disable-line func-names
+    var arr = new Array().concat(this);
+    arr[method].apply(arr, arguments);
+    return FrozenArray.apply(null, arr);
   };
 });
 
@@ -45,10 +57,9 @@ class FrozenArray extends Array {
   'concat',
   'map',
   'filter',
-].forEach(method => {
-  FrozenArray.prototype[method] = function (...args) { // eslint-disable-line func-names
-    const arr = new Array().concat(...this); // eslint-disable-line no-array-constructor
-    return new FrozenArray(...arr[method](...args));
+].forEach(function (method) { // eslint-disable-line func-names
+  FrozenArray.prototype[method] = function () { // eslint-disable-line func-names
+    return FrozenArray.apply(null, Array.prototype[method].apply(this, arguments));
   };
 });
 
