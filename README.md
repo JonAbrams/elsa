@@ -87,6 +87,23 @@ const dogClone = dog.update({ name: { $set: 'Loki 2.0' }, friends: { $push: ['Se
 // dogClone now contains { name: 'Loki 2.0', age: 4, friends: ['Waffles', 'Mochi', 'Seamus'] }
 ```
 
+## Opting out of FrozenArray and FrozenObject
+
+Elsa will ignore arrays created with `new Array(1,2,3)` or `Array.of(1,2,3)`, which will produce old
+fashioned mutable arrays.
+
+To create mutable objects, you can do `new Object({ name: 'Loki' })`, which Elsa will skip over, resulting in old fashioned mutable objects.
+
+## Gotchas and tips
+
+- Elsa will only alter object and array literals. If you create an object using a function of `new` constructor, it won't be frozen (at least not by Elsa). Only `[…]` and `{…}` are frozen by Elsa.
+- Some libraries expect to receive mutable objects as their parameters. If you receive type errors in
+libraries that you use, try sending in an object created with `new Object({…})`.
+- Elsa only converts your code. Babel, and therefore Elsa, doesn't convert 3rd party modules. This means
+that any objects produced by libraries won't be frozen.
+- You can freeze objects returned by libraries by wrapping it with `new FrozenObject(…)`.
+- If you don't use Elsa as a Baebl plugin, you can still use `FrozenArray` and `FrozenObject` with your code. Just do `import FrozenArray from 'babel-plugin-elsa/frozen_array'` and/or `import FrozenObject from 'babel-plugin-elsa/frozen_object'`.
+
 ## License
 
 ISC

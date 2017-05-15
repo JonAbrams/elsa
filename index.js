@@ -15,8 +15,11 @@ module.exports = function elsa({ types: t }) {
       },
       ObjectExpression(path) {                    // select new object literals
                                                   // Ignore literals passed into new FrozenObject()
+        const skipped = ['FrozenObject', 'Object'];
                                                   // otherwise causes infinite recursion
-        if (t.isNewExpression(path.parent) && path.parent.callee.name === 'FrozenObject') return;
+        if (t.isNewExpression(path.parent) && skipped.indexOf(path.parent.callee.name) !== -1) {
+          return;
+        }
         if (!path.node.loc) return;
                                                   // turn `{ hi: true }` into
         path.replaceWith(                         // `new FrozenObject({ hi: true })`

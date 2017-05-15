@@ -16,17 +16,11 @@ import FrozenArray from 'babel-plugin-elsa/frozen_array';
     followerCount: 5,
     followers: new FrozenArray(new FrozenObject({ name: 'zivi' }))
   });
-  var defaultEmptyUser = user || new FrozenObject({});
-  var users = new FrozenArray(user);
-  var emptyUsers = new FrozenArray();
-  user.followerCount = 6;
-  user.followerCount++;
-  user.followerCount += 1;
-  resetfollowerCount(user, new FrozenObject({}));
-
-  function resetfollowerCount(user) {
-    person.followerCount = 1;
-  }
+  var normalUser = new Object({
+    name: 'Loki',
+    age: 4
+  });
+  var list = new FrozenArray(1, 2, 3, 4);
 
   return users.pop();
 })();
