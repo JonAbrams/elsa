@@ -9,14 +9,7 @@
 
 function FrozenArray() {
   var proto = FrozenArray.prototype;
-  var args = arguments;
-  var self;
-  if (args.length === 1 && typeof args[0] === 'number') {
-    self = new Array(1);
-    self[0] = args[0];
-  } else {
-    self = Array.apply(null, args);
-  }
+  var self = Array.prototype.slice.call(arguments);
 
   // eslint-disable-next-line no-unused-expressions
   Object.setPrototypeOf ? Object.setPrototypeOf(self, proto) : self.__proto__ = proto;
