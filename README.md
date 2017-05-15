@@ -4,6 +4,8 @@
 
 Babel plugin that replaces object and array literals with immutable versions… that have super powers!
 
+[![Build Status](https://travis-ci.org/JonAbrams/elsa.svg?branch=master)](https://travis-ci.org/JonAbrams/elsa)
+
 ## Usage
 
 Elsa is a babel plugin, to make use of it, you need to install it:
