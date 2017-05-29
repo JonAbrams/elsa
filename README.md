@@ -104,6 +104,15 @@ that any objects produced by libraries won't be frozen.
 - You can freeze objects returned by libraries by wrapping it with `new FrozenObject(…)`.
 - If you don't use Elsa as a Baebl plugin, you can still use `FrozenArray` and `FrozenObject` with your code. Just do `import FrozenArray from 'babel-plugin-elsa/frozen_array'` and/or `import FrozenObject from 'babel-plugin-elsa/frozen_object'`.
 
+## Sample App
+
+I've written a very basic todo app (of course) that makes use of Elsa.
+
+- [Source with Elsa](https://github.com/JonAbrams/todo-elsa)
+- [Source without Elsa](https://github.com/JonAbrams/todo-elsa/tree/07e325445ad3fcb6a1244f85bbbcdac43033d13a)
+- [Diff](https://github.com/JonAbrams/todo-elsa/commit/07e325445ad3fcb6a1244f85bbbcdac43033d13a)
+- [Live](https://todo-elsa-whylddtmuu.now.sh)
+
 ## License
 
 ISC
