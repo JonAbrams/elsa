@@ -73,6 +73,7 @@ return `FrozenArray` instances instead of a normal mutable array.
 - `unshift`: `new FrozenArray(1,2,3).shift(0)` -> `[0,1,2,3]`
 - `shift`: `new FrozenArray(1,2,3).shift()` -> `[[2,3], 1]`
 - `sort`: `new FrozenArray(2,1,3).sort((a,b) => a - b)` -> `[1,2,3]`
+
 **Note:** Return values are all instances of FrozenArray
 
 ## FrozenObject
