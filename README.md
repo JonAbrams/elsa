@@ -35,7 +35,7 @@ Elsa does two things:
 Both `FrozenObject`s and `FrozenArray`s are immutable classes included with Elsa. If you try to change their contents, they'll raise
 a `TypeError` since they've been frozen with [`Object.freeze`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze). Assuming you have [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) enabled (which you ought to do).
 
-Elsa will turn this:
+Elsa will:
 ```javascript
 // Turn this:
 const person = {
@@ -60,8 +60,12 @@ Elsa turns all array literals (e.g. `const coolNumbers = [1,5,-4,20];`) into ins
 
 The methods on `Array` that would typically mutate the array are reimplemented on`FrozenArray` to
 instead return a fresh instance of `FrozenArray` with changes applied. This includes `push`, `pop`,
-`unshift`, `shift`, `sort`, `reverse`, `splice`, and `fill`. `slice` has also been reimplemented, but
-its only difference is that it returns a `FrozenArray` instance instead of a normal mutable array.
+`unshift`, `shift`, `sort`, `reverse`, `splice`, and `fill`.
+
+`slice`, `map`, and other methods that already return new arrays are still available, but
+return `FrozenArray` instances instead of a normal mutable array.
+
+`pop` and `shift` return both the _modified_ arrays and the shifted/popped values as two elements inside an array. That way you can do: `[arr, poppedVal] = arr.pop()`.
 
 **Examples:**
 - `push`: `new FrozenArray(1,2,3).push(5)` -> `[1, 2, 3, 5]`
