@@ -30,7 +30,7 @@ Don't worry, there are no more puns past this point, they've been put on **ice**
 
 Elsa does two things:
 - It turns each [object literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Object_literals) into a `FrozenObject`.
-- It changes each [array literal]([array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Array_literals) into a `FrozenArray`.
+- It changes each [array literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#Array_literals) into a `FrozenArray`.
 
 Both `FrozenObject`s and `FrozenArray`s are immutable classes included with Elsa. If you try to change their contents, they'll raise
 a `TypeError` since they've been frozen with [`Object.freeze`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze). Assuming you have [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) enabled (which you ought to do).
