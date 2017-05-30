@@ -107,7 +107,7 @@ libraries that you use, try sending in an object created with `new Object({…})
 - Elsa only converts your code. Babel, and therefore Elsa, doesn't convert 3rd party modules. This means
 that any objects produced by libraries won't be frozen.
 - You can freeze objects returned by libraries by wrapping it with `new FrozenObject(…)`.
-- If you don't use Elsa as a Baebl plugin, you can still use `FrozenArray` and `FrozenObject` with your code. Just do `import FrozenArray from 'babel-plugin-elsa/frozen_array'` and/or `import FrozenObject from 'babel-plugin-elsa/frozen_object'`.
+- If you don't use Elsa as a Babel plugin, you can still use `FrozenArray` and `FrozenObject` with your code. Just do `import FrozenArray from 'babel-plugin-elsa/frozen_array'` and/or `import FrozenObject from 'babel-plugin-elsa/frozen_object'`.
 
 ## Sample App
 
